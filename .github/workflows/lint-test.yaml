@@ -12,11 +12,18 @@ jobs:
       - name: Fetch history
         run: git fetch --prune --unshallow
 
+      - name: Create charts symplink
+        run:  mkdir charts; ln -s "$(pwd)" charts/helm
+
+      - name: Check Dir
+        run:  ls -lta
+
       - name: Run chart-testing (lint)
         id: lint
         uses: helm/chart-testing-action@v1.0.0
         with:
           command: lint
+          config: .github/ct.yaml
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.0.0
@@ -26,3 +33,4 @@ jobs:
         uses: helm/chart-testing-action@v1.0.0
         with:
           command: install
+          config: .github/ct.yaml

@@ -3,7 +3,7 @@
 apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
-  name: {{ .Release.Name }}-monitoring
+  name: {{ .Release.Name }}-test
   namespace: {{ $.Release.Namespace }}
 spec:
   secretName: {{ .Values.dNation.certificate.secretName }}

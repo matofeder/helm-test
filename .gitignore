@@ -7,7 +7,6 @@
 *.bak
 *.tmp
 # Helm files
-charts/*
 test/*
 release/*
 snapshot/*
