@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: 1.0.0
 name: test
-version: 1.0.21
+version: 1.0.22
 home: https://github.com/matofeder/helm-test
 description: HELM TEST.
 maintainers:

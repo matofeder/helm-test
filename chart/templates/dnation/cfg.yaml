@@ -1,0 +1,16 @@
+{{- if .Values.configmap }}
+{{- if .Values.configmap.enabled }}
+"apiVersion": "v1"
+"data":
+  "api-server.json": "{}"
+"kind": "ConfigMap"
+"metadata":
+  "annotations": {}
+  "labels":
+    "app": "{{ $.Release.Name }}-test"
+    "grafana_dashboard": "1"
+    "release": "{{ $.Release.Name }}"
+  "name": "{{ $.Release.Name }}-test-server"
+  "namespace": "{{ $.Release.Namespace }}"
+{{- end }}
+{{- end }}
