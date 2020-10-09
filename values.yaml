@@ -1,0 +1,24 @@
+# Example of custom configuration file that overwrites default dNation monitoring values.yaml file
+# Customization includes:
+#
+#  - Enables ingress and certificates deployment for the Grafana endpoint
+#  - Enables PVCs for Prometheus, Prometheus Alertmanager, Loki and Grafana deployments
+#  - Enables and configures Prometheus Alertmanager email receiver
+#  - Disables NodePorts for Prometheus, Grafana and Prometheus Alertmanager
+#
+
+dNation:
+  certificate:
+    issuer: letsencrypt-prod
+    commonName: k8s-h-01-monitoring.maxiticket.sk
+    secretName: k8s-h-01-monitoring.maxiticket.sk
+    hosts:
+    - k8s-h-01-monitoring.maxiticket.sk
+  sidecar:
+    datasources:
+      prometheus:
+        name: k8s-h-01-metrics
+      loki:
+        name: k8s-h-01-logs
+      alertmanager:
+        name: k8s-h-01-alertmanager

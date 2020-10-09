@@ -1,0 +1,7 @@
+apiVersion: v2
+name: test
+version: 1.0.1
+description: HELM TEST.
+maintainers:
+- name: dNation
+  email: admin@dNation.tech
