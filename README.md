@@ -1,3 +1,6 @@
 # helm-test
 
-# TETS
+# CI
+- test lint
+- test install
+- release
