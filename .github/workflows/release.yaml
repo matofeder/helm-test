@@ -1,0 +1,43 @@
+name: Release Chart
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Fetch history
+        run: git fetch --prune --unshallow
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "$GITHUB_ACTOR"
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Publish Chart to the local repository
+        uses: helm/chart-releaser-action@v1.0.0
+        env:
+          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
+        with:
+          charts_dir: .  # https://github.com/helm/chart-releaser-action#inputs
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+
+      - name: Install Chartpress
+        run: |
+          python -m pip install --upgrade pip
+          pip install chartpress
+
+      - name: Publish Chart to the remote dNationCloud helm repository
+        run: chartpress --publish-chart --tag `helm show chart chart | grep "version" | awk '{print $2}'`
+        env:
+          GITHUB_TOKEN: "${{ secrets.CR_TOKEN }}"
