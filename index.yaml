@@ -1,17 +1,79 @@
 apiVersion: v1
 entries:
+  k8s-m8g-stack:
+  - apiVersion: v2
+    created: "2020-10-12T18:19:07.536908805+02:00"
+    dependencies:
+    - condition: kube-prometheus-stack.enabled
+      name: kube-prometheus-stack
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 9.4.*
+    - condition: loki-stack.enabled
+      name: loki-stack
+      repository: https://grafana.github.io/loki/charts
+      version: 0.40.*
+    - condition: k8s-m8g.enabled
+      name: k8s-m8g
+      repository: https://nexus.ifne.eu/repository/ifne-helm-public/
+      version: 1.0.*
+    description: An umbrella helm chart for Kubernetes monitoring based on kube-prometheus-stack,
+      loki-stack and k8s-m8g.
+    digest: eca570e1e83bd230aad61fd9f10f3fdb9784fcf078f7cd5d6cbde04f1997bf99
+    home: https://git.ifne.eu/dnation/k8s-m8g-stack
+    icon: https://storage.googleapis.com/ifne.eu/public/dNation_k8s_m8g_logo.png
+    keywords:
+    - kubernetes
+    - monitoring
+    - prometheus
+    - grafana
+    - loki
+    maintainers:
+    - email: admin@dNation.tech
+      name: dNation
+    name: k8s-m8g-stack
+    sources:
+    - https://git.ifne.eu/dnation/k8s-m8g-stack
+    urls:
+    - https://matofeder.github.io/helm-repo/k8s-m8g-stack-1.0.17.tgz
+    version: 1.0.17
   test:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2020-10-12T14:04:54.921301283Z"
+    created: "2020-10-13T06:57:42.263273945Z"
     description: HELM TEST.
-    digest: b3f7649c46dac21db450c4476ff8be9b1689325713e169f50211bb7e86d94002
+    digest: e07d21acce97d2b65f5a9f3488e2e6210fc372704572bb09eafea379266df48f
     home: https://github.com/matofeder/helm-test
     maintainers:
     - email: admin@dNation.tech
       name: dNation
     name: test
     urls:
-    - https://github.com/matofeder/helm-test/releases/download/test-1.0.24/test-1.0.24.tgz
+    - https://github.com/matofeder/helm-test/releases/download/test-1.0.26/test-1.0.26.tgz
+    version: 1.0.26
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2020-10-12T16:52:06.174073304Z"
+    description: HELM TEST.
+    digest: 7744335ba20bfbc66845b043a6aa1ec3f93b7912b886cd4ae2eceb3950818841
+    home: https://github.com/matofeder/helm-test
+    maintainers:
+    - email: admin@dNation.tech
+      name: dNation
+    name: test
+    urls:
+    - https://matofeder.github.io/helm-repo/test-1.0.25.tgz
+    version: 1.0.25
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2020-10-12T18:16:22.178836583+02:00"
+    description: HELM TEST.
+    digest: 97e5eb49fd7e39e07596ba62ac88dc84945a10ae7f9cfb339866a1e3fcd2878b
+    home: https://github.com/matofeder/helm-test
+    maintainers:
+    - email: admin@dNation.tech
+      name: dNation
+    name: test
+    urls:
+    - https://matofeder.github.io/helm-repo/test-1.0.24.tgz
     version: 1.0.24
-generated: "2020-10-12T14:04:54.760318142Z"
+generated: "2020-10-12T16:52:06.173482341Z"
