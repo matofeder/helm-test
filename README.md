@@ -5,4 +5,5 @@
 # CI
 - test lint
 - test install
-- release
+- release to the local helm repo
+- release to the remote helm repo
