@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'chart/**'
 
 jobs:
   release:
@@ -15,17 +17,16 @@ jobs:
       - name: Fetch history
         run: git fetch --prune --unshallow
 
+      - name: Get helm chart version
+        id: version
+        run: |
+          chart=$(cat chart/Chart.yaml | grep "version" | awk '{print $2}')
+          echo "::set-output name=chart::$chart"
+
       - name: Configure Git
         run: |
           git config --global user.name "$GITHUB_ACTOR"
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
-      - name: Publish Chart to the local repository
-        uses: helm/chart-releaser-action@v1.0.0
-        env:
-          CR_TOKEN: "${{ secrets.CR_TOKEN }}"
-        with:
-          charts_dir: .  # https://github.com/helm/chart-releaser-action#inputs
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -38,6 +39,13 @@ jobs:
           pip install chartpress
 
       - name: Publish Chart to the remote dNationCloud helm repository
-        run: chartpress --publish-chart --tag `helm show chart chart | grep "version" | awk '{print $2}'`
+        run: chartpress --publish-chart --tag ${{ steps.version.outputs.chart }}
         env:
-          GITHUB_TOKEN: "${{ secrets.CR_TOKEN }}"
+          GITHUB_TOKEN: ${{ secrets.CR_TOKEN }}
+
+      - name: Tag branch
+        uses: anothrNick/github-tag-action@1.26.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.CR_TOKEN }}
+          CUSTOM_TAG: 'v${{ steps.version.outputs.chart }}'
+          RELEASE_BRANCHES: master
