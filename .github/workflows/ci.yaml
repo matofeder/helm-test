@@ -45,7 +45,7 @@ jobs:
       matrix:
         k8s:
           - v1.17.5
-          - v1.19.1
+#          - v1.19.1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -66,9 +66,11 @@ jobs:
         with:
           node_image: kindest/node:${{ matrix.k8s }}
 
+      - name: Install prometheusrules crd
+        run: kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/release-0.42/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+
       - name: Run chart-testing (install)
         uses: helm/chart-testing-action@v1.0.0
-        run: kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/release-0.42/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
         with:
           command: install
           config: .github/ct.yaml
